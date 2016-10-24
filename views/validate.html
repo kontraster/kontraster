@@ -1,6 +1,13 @@
 {{>partials/header}}
 
-<h1>Validating {{validate.url}}</h1>
-<img src="{{validate.screenshot}}" alt="">
+<main>
+    <h1>Validating {{validate.url}}</h1>
+    
+    <div class="contrast-map js-contrast-map">
+        <img src="{{validate.screenshot}}" alt="" class="contrast-map__image">
+    </div>
+</main>
+
+<script src="/assets/scripts/app.js"></script>
 
 {{>partials/footer}}
