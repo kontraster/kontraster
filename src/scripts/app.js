@@ -18,7 +18,6 @@ if (contrastMapContainer) {
       vertexShaderContent
     );
 
-    contrastMapImage.style.display = 'none';
     contrastMap.classList.add('contrast-map__overlay');
     contrastMapContainer.appendChild(contrastMap);
   });

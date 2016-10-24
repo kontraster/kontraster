@@ -65,9 +65,12 @@ function createTexture(gl, image) {
 }
 
 function createContrastMap(image, fragmentShaderContent, vertexShaderContent) {
+  const height = image.naturalHeight;
+  const width = image.naturalWidth;
+
   const canvas = document.createElement('canvas');
-  canvas.height = image.naturalHeight;
-  canvas.width = image.naturalWidth;
+  canvas.height = height;
+  canvas.width = width;
 
   const gl = getWebGLContext(canvas);
   createVertexPositionBuffer(gl);
@@ -92,6 +95,9 @@ function createContrastMap(image, fragmentShaderContent, vertexShaderContent) {
   gl.activeTexture(gl.TEXTURE0);
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uTexture'), 0);
+
+  const uTextureSize = gl.getUniformLocation(shaderProgram, 'uTextureSize');
+  gl.uniform2fv(uTextureSize, [width, height]);
 
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 
