@@ -25,7 +25,6 @@
     "gulp": "git+https://github.com/gulpjs/gulp.git#4.0",
     "gulp-sourcemaps": "^2.2.0",
     "gulp-uglify": "^2.0.0",
-    "three": "^0.81.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "whatwg-fetch": "^1.0.0"
