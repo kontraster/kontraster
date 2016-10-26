@@ -1,10 +1,12 @@
 const path = require('path');
 const express = require('express');
-const mustacheExpress = require('mustache-express');
+const handlebars = require('express-handlebars');
 
 const app = express();
-app.engine('html', mustacheExpress());
-app.set('view engine', 'html');
+app.engine('handlebars', handlebars({
+  defaultLayout: 'main',
+}));
+app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
