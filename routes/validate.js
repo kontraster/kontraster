@@ -6,7 +6,7 @@ const EXEC_OPTIONS = {
 };
 
 module.exports = (req, res) => {
-  exec(`npm run --silent screenshot -- ${req.body.url}`, EXEC_OPTIONS, (err, stdout) => {
+  exec(`npm run --silent screenshot -- ${req.query.url}`, EXEC_OPTIONS, (err, stdout) => {
     if (err) {
       console.error(err);
       return;
@@ -15,9 +15,9 @@ module.exports = (req, res) => {
     const buffer = new Buffer(stdout, 'base64');
 
     res.render('validate', {
-      title: `validating ${req.body.url}`,
+      title: `validating ${req.query.url}`,
       validate: {
-        url: req.body.url,
+        url: req.query.url,
         screenshot: IMAGE_URL_PREFIX + buffer.toString('base64'),
       },
     });
