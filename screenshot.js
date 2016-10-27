@@ -5,9 +5,10 @@ var page = require('webpage').create();
 var args = require('system').args;
 
 var address = args[1] || '';
+var output = args[2];
 
 if (address.toString().length === 0) {
-  console.log('Usage: screenshot.js URL');
+  console.error('Usage: screenshot.js URL');
   phantom.exit(1);
 }
 
@@ -18,18 +19,18 @@ page.viewportSize = {
 
 page.open(address, function (status) {
   if (status !== 'success') {
-    console.log('Unable to load the address!');
+    console.error('Unable to load the address.');
     phantom.exit(1);
   }
 
   window.setTimeout(function () {
     page.evaluate(function () {
-      if (!document.body.style.background) {
+      if (!document.body.style.backgroundColor) {
         document.body.style.backgroundColor = 'white';
       }
     });
 
-    console.log(page.renderBase64('png'));
+    page.render(output, { format: 'png' });
     phantom.exit();
-  }, 1000);
+  }, 250);
 });
