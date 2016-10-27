@@ -1,6 +1,6 @@
 const gulp = require('gulp');
-const scripts = require('./scripts');
 const browserSync = require('browser-sync').create();
+const config = require('./config');
 
 function reload(done) {
   browserSync.reload();
@@ -12,6 +12,7 @@ module.exports = () => {
     proxy: 'localhost:3000',
   });
 
-  gulp.watch('src/scripts/**/*.js', gulp.series('scripts', reload));
-  gulp.watch('public/assets/shaders/**/*.glsl', reload);
+  gulp.watch(`${config.paths.scripts.source}/**/*.js`, gulp.series('scripts', reload));
+  gulp.watch(`${config.paths.shaders.source}/**/*.glsl`, gulp.series('shaders', reload));
+  gulp.watch(`${config.paths.styles.source}/**/*.scss`, gulp.series('styles', reload));
 };

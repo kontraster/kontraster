@@ -1,0 +1,18 @@
+.contrast-map {
+  position: relative;
+}
+.contrast-map__image {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.contrast-map__overlay {
+  display: block;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  filter: blur(2px);
+}

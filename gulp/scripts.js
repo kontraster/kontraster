@@ -1,15 +1,17 @@
 const gulp = require('gulp');
+const util = require('gulp-util');
 const babelify = require('babelify');
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
+const minifyJs = require('gulp-uglify');
 const source = require('vinyl-source-stream');
 const sourcemaps = require('gulp-sourcemaps');
-const uglify = require('gulp-uglify');
+const config = require('./config');
 
 module.exports = () => {
   const b = browserify({
     debug: true,
-    entries: 'src/scripts/app.js',
+    entries: `${config.paths.scripts.source}/app.js`,
     transform: [babelify],
   });
 
@@ -17,7 +19,7 @@ module.exports = () => {
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
-    // .pipe(uglify())
+    .pipe(config.environment.production ? minifyJs() : util.noop())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('public/assets/scripts'));
+    .pipe(gulp.dest(config.paths.scripts.destination));
 };
