@@ -1,13 +1,19 @@
 {
   "name": "kontraster",
+  "config": {
+    "port": 3000
+  },
   "scripts": {
     "build": "gulp",
     "screenshot": "phantomjs screenshot.js",
     "start": "node index.js"
   },
+  "bin": "./kontraster.js",
   "dependencies": {
+    "chalk": "^1.1.3",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
+    "meow": "^3.7.0",
     "mustache": "^2.2.1",
     "mustache-express": "^1.2.2",
     "phantomjs-prebuilt": "^2.1.13",

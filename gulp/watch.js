@@ -1,6 +1,8 @@
 const gulp = require('gulp');
+const util = require('gulp-util');
 const browserSync = require('browser-sync').create();
 const config = require('./config');
+const defaultPort = require('../package').config.port;
 
 function reload(done) {
   browserSync.reload();
@@ -9,7 +11,7 @@ function reload(done) {
 
 module.exports = () => {
   browserSync.init({
-    proxy: 'localhost:3000',
+    proxy: util.env.proxy || `localhost:${defaultPort}`,
   });
 
   gulp.watch(`${config.paths.scripts.source}/**/*.js`, gulp.series('scripts', reload));

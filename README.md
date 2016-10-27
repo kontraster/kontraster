@@ -17,5 +17,5 @@ npm install
 npm run build --production
 
 # Start server
-npm start
+./kontraster
 ```
