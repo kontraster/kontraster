@@ -6,7 +6,6 @@
   height: auto;
   width: 100%;
 }
-
 .contrast-map__overlay {
   display: block;
   width: 100%;
@@ -15,4 +14,23 @@
   top: 0;
 
   filter: blur(2px);
+}
+.contrast-map__legend {
+  padding: $spacing--small;
+  margin: 0;
+  background-color: #000;
+  color: #fff;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  list-style-type: none;
+}
+.contrast-map__legend-level--aaa {
+  color: #0f0;
+}
+.contrast-map__legend-level--aa {
+  color: #f80;
 }
