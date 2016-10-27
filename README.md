@@ -7,9 +7,15 @@ Kontraster is a tool to validate text colour contrast on websites for optimal re
 ## Installation
 
 ```js
+# Download Kontraster
 git clone git@github.com:timseverien/kontraster.git
 cd contraster
 
+# Install dependencies
 npm install
+# Build required assets
+npm run build --production
+
+# Start server
 npm start
 ```
