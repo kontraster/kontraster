@@ -1,4 +1,5 @@
 node_modules/
 *.log
 
+.screenshot-cache/
 public/assets/
