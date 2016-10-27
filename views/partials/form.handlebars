@@ -1,0 +1,17 @@
+<h1>Kontraster</h1>
+<p>Test your website’s text to background color contrast ratio to check WCAG validity.</p>
+
+<form action="/validate" enctype="" method="get">
+  <div>
+    <label for="input-url">Website (required)</label>
+    <input type="url" name="url" id="input-url" required
+      {{#if validate.url}}value="{{{validate.url}}}"{{/if}}
+      {{#if error}}aria-invalid="true" aria-describedby="input-url-errors"{{/if}}>
+
+    {{#if error}}
+    <div class="error-message" id="input-url-errors">{{error}}</div>
+    {{/if}}
+  </div>
+
+  <button type="submit" class="button">Check colour contrast</button>
+</form>
