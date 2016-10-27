@@ -1,0 +1,11 @@
+label {
+  display: block;
+  margin-bottom: $spacing--smaller;
+}
+
+input, textarea {
+  width: 100%;
+  padding: $spacing--smaller;
+  border: 1px solid #444;
+  margin-bottom: $spacing--small;
+}

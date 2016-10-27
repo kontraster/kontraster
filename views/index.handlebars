@@ -1,8 +1,8 @@
-<main>
+<main class="container">
   <h1>Kontraster</h1>
 
   <form action="/validate" enctype="" method="get">
-    <div class="form-field">
+    <div>
       <label for="input-url">Website (required)</label>
       <input type="text" name="url" id="input-url" required
         {{#if validate.url}}value="{{validate.url}}"{{/if}}
@@ -13,8 +13,6 @@
       {{/if}}
     </div>
 
-    <div>
-      <button type="submit">Check colour contrast</button>
-    </div>
+    <button type="submit" class="button">Check colour contrast</button>
   </form>
 </main>

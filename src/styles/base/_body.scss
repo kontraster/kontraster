@@ -1,0 +1,17 @@
+html {
+  font-size: 100%;
+  line-height: $line-height;
+}
+
+body {
+  background-color: #fafafa;
+  color: #222;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:focus {
+  outline: 2px solid $branding--primary;
+}
