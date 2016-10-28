@@ -26,6 +26,7 @@ module.exports = () => {
   });
 
   gulp.watch(`views/**/*.handlebars`, reload);
+  gulp.watch(`${config.paths.images.source}/**/*.{gif,jpg,png,svg}`, gulp.series('images', reload));
   gulp.watch(`${config.paths.scripts.source}/**/*.js`, gulp.series('scripts', reload));
   gulp.watch(`${config.paths.shaders.source}/**/*.glsl`, gulp.series('shaders', reload));
   gulp.watch(`${config.paths.styles.source}/**/*.scss`, gulp.series('styles', update));

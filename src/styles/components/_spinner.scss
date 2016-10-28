@@ -1,0 +1,15 @@
+@keyframes spinner-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.spinner__image {
+  height: 1em;
+  width: 1em;
+  animation: 2s linear infinite spinner-rotate;
+}

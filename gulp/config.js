@@ -10,6 +10,10 @@ module.exports = {
 
   paths: {
     destination: DIR_DESTINATION,
+    images: {
+      source: `${DIR_SOURCE}/images`,
+      destination: `${DIR_DESTINATION}/images`,
+    },
     scripts: {
       source: `${DIR_SOURCE}/scripts`,
       destination: `${DIR_DESTINATION}/scripts`,

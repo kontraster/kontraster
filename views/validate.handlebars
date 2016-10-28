@@ -3,11 +3,11 @@
     {{> form }}
   </div>
 
-  <div class="container">
-    <h2>Validating {{validate.url}}</h2>
-  </div>
-
   {{#if validate.imageUrl}}
+    <div class="container">
+      <h2>Validating {{validate.url}}</h2>
+    </div>
+
     {{> contrast-map }}
   {{/if}}
 </main>

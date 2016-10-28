@@ -1,9 +1,27 @@
 .contrast-map {
-  display: none;
+  min-height: 56.25vw;
+  overflow: hidden;
+  background-color: rgba(#000, .125);
   position: relative;
+
+  .contrast-map__legend,
+  .contrast-map__image,
+  .contrast-map__overlay {
+    display: none;
+  }
 
   &--ready {
     display: block;
+
+    .contrast-map__legend,
+    .contrast-map__image,
+    .contrast-map__overlay {
+      display: block;
+    }
+
+    .spinner {
+      display: none;
+    }
   }
 }
 .contrast-map__image {
