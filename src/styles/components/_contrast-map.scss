@@ -1,5 +1,10 @@
 .contrast-map {
+  display: none;
   position: relative;
+
+  &--ready {
+    display: block;
+  }
 }
 .contrast-map__image {
   display: block;

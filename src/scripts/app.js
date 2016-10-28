@@ -30,6 +30,7 @@ if (contrastMapContainer) {
     contrastMapContainer.appendChild(contrastMapImage);
     contrastMap.classList.add('contrast-map__overlay');
     contrastMapContainer.appendChild(contrastMap);
+    contrastMap.contrastMapContainer.add('contrast-map--ready');
   })
   .catch((err) => {
     console.error('Something went terribly wrong', err);
