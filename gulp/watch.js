@@ -25,6 +25,7 @@ module.exports = () => {
     proxy: util.env.proxy || `localhost:${defaultPort}`,
   });
 
+  gulp.watch(`views/**/*.handlebars`, reload);
   gulp.watch(`${config.paths.scripts.source}/**/*.js`, gulp.series('scripts', reload));
   gulp.watch(`${config.paths.shaders.source}/**/*.glsl`, gulp.series('shaders', reload));
   gulp.watch(`${config.paths.styles.source}/**/*.scss`, gulp.series('styles', update));
