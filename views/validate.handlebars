@@ -8,13 +8,7 @@
   </div>
 
   {{#if validate.imageUrl}}
-  <div class="contrast-map js-contrast-map" data-contrast-image-url="{{validate.imageUrl}}">
-    <ul class="contrast-map__legend">
-      <li><span class="contrast-map__legend-level--aaa">Green</span>: WCAG level AAA</li>
-      <li><span class="contrast-map__legend-level--aa">Orange</span>: WCAG level AA</li>
-      <li><span class="contrast-map__legend-level--a">Other</span>: WCAG level A</li>
-    </ul>
-  </div>
+    {{> contrast-map }}
   {{/if}}
 </main>
 
