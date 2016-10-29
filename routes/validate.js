@@ -11,7 +11,7 @@ module.exports = (req, res) => {
   };
 
   if (UrlValidator.isUri(req.query.url)) {
-    viewParameters.validate.imageUrl = `/get-screenshot?url=${encodeURIComponent(req.query.url)}`;
+    viewParameters.validate.imageUrl = `/get-screenshots?url=${encodeURIComponent(req.query.url)}`;
   } else {
     viewParameters.error = 'URL is invalid.';
   }

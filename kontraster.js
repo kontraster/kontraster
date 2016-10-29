@@ -35,7 +35,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', require('./routes/index'));
 app.get('/validate', require('./routes/validate'));
-app.get('/get-screenshot', require('./routes/get-screenshot'));
+app.get('/get-screenshots', require('./routes/get-screenshots'));
 
 app.use(require('./routes/404'));
 

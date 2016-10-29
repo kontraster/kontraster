@@ -6,6 +6,8 @@ var args = require('system').args;
 
 var address = args[1] || '';
 var output = args[2];
+var withoutTextOutput = args[3];
+var outputSettings = { format: 'png' };
 
 if (address.toString().length === 0) {
   console.error('Usage: screenshot.js URL');
@@ -23,14 +25,24 @@ page.open(address, function (status) {
     phantom.exit(1);
   }
 
+  page.evaluate(function () {
+    if (!document.body.style.backgroundColor) {
+      document.body.style.backgroundColor = 'white';
+    }
+  });
+
   window.setTimeout(function () {
+    page.render(output, outputSettings);
+
     page.evaluate(function () {
-      if (!document.body.style.backgroundColor) {
-        document.body.style.backgroundColor = 'white';
-      }
+      Array.prototype.forEach.call(document.querySelectorAll('*'), function (element) {
+        element.style.color = 'transparent';
+      });
     });
 
-    page.render(output, { format: 'png' });
-    phantom.exit();
-  }, 250);
+    window.setTimeout(function () {
+      page.render(withoutTextOutput, outputSettings);
+      phantom.exit();
+    }, 1000);
+  }, 1000);
 });
