@@ -1,6 +1,11 @@
 /* global fetch */
 import 'whatwg-fetch';
 
+/**
+ * Fetch shaders required for a contrast map.
+ *
+ * @return {Promise}
+ */
 function fetchShaders() {
   const readShaderResponse = shaderResponse => shaderResponse.text();
 

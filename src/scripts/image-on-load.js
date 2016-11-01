@@ -1,3 +1,9 @@
+/**
+ * Get a Promise for an image load state.
+ *
+ * @param {Image} image - The image to test.
+ * @return Promise
+ */
 function imageOnLoad(image) {
   return new Promise((resolve, reject) => {
     if (image.complete) {

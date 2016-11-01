@@ -1,5 +1,11 @@
 const UrlValidator = require('valid-url');
 
+/**
+ * The route to audit a webpage.
+ *
+ * @param {Object} req - The route’s request object.
+ * @param {Object} res - The route’s response object.
+ */
 module.exports = (req, res) => {
   const viewParameters = {
     title: `validating ${req.query.url}`,

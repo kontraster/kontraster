@@ -1,5 +1,11 @@
 /* global document */
 
+/**
+ * Get a canvas’ WebGL context.
+ *
+ * @param {HTMLCanvasElement} canvas - The canvas element to get the context for.
+ * @return {WebGLRenderingContext}
+ */
 function getWebGLContext(canvas) {
   const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
   gl.viewportWidth = canvas.width;
@@ -8,6 +14,14 @@ function getWebGLContext(canvas) {
   return gl;
 }
 
+/**
+ * Create a shader from a shader source and type.
+ *
+ * @param {WebGLRenderingContext} gl - The rendering context to create the shader for.
+ * @param {String} shaderContent - The contents of the shader.
+ * @param {Number} shaderType - The shader type to create.
+ * @return {WebGLShader}
+ */
 function createShader(gl, shaderContent, shaderType) {
   const shader = gl.createShader(shaderType);
 
@@ -20,6 +34,14 @@ function createShader(gl, shaderContent, shaderType) {
   return shader;
 }
 
+/**
+ * Create a shader program.
+ *
+ * @param {WebGLRenderingContext} gl - The rendering context to create the shader program for.
+ * @param {WebGLShader} fragmentShader - The fragment shader.
+ * @param {WebGLShader} vertexShader - The vertex shader.
+ * @return {WebGLShader}
+ */
 function createShaderProgram(gl, fragmentShader, vertexShader) {
   const shaderProgram = gl.createProgram();
   gl.attachShader(shaderProgram, fragmentShader);
@@ -34,6 +56,12 @@ function createShaderProgram(gl, fragmentShader, vertexShader) {
   return shaderProgram;
 }
 
+/**
+ * Create a vertex buffer for the plane.
+ *
+ * @param {WebGLRenderingContext} gl - The rendering context to create the vertex buffer for.
+ * @return {WebGLBuffer}
+ */
 function createVertexPositionBuffer(gl) {
   const vertexPositionBuffer = gl.createBuffer();
   const vertices = new Float32Array([
@@ -51,6 +79,13 @@ function createVertexPositionBuffer(gl) {
   return vertexPositionBuffer;
 }
 
+/**
+ * Create a texture from an image.
+ *
+ * @param {WebGLRenderingContext} gl - The rendering context to create the image for.
+ * @param {Image} image - The image to convert into a texture.
+ * @return {WebGLTexture}
+ */
 function createTexture(gl, image) {
   const texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -64,6 +99,15 @@ function createTexture(gl, image) {
   return texture;
 }
 
+/**
+ * Create a contrast map.
+ *
+ * @param {Image} image - The base image.
+ * @param {Image} imageWithoutText - Reference image without text.
+ * @param {String} fragmentShaderContent - The fragment shader source.
+ * @param {String} vertexShaderContent - The vertex shader source;
+ * @return {Object}
+ */
 function createContrastMap(image, imageWithoutText, fragmentShaderContent, vertexShaderContent) {
   const height = image.naturalHeight;
   const width = image.naturalWidth;

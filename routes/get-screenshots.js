@@ -6,12 +6,24 @@ const UrlValidator = require('valid-url');
 const screenshotDirectory = path.resolve(`${__dirname}/../public`);
 const screenshotPath = 'screenshots';
 
+/**
+ * Create a filename for a screenshot.
+ *
+ * @param {String} key - A identifier used to generate a filename.
+ * @return {String}
+ */
 function getFilename(key) {
   const hash = crypto.createHash('md5');
   hash.update(key);
   return hash.digest('hex');
 }
 
+/**
+ * Creates a list of filenames for different types of screenshots.
+ *
+ * @param {String} key - A identifier used to generate a filename.
+ * @return {Array}
+ */
 function getFilenames(key) {
   return [
     `${getFilename(key)}.png`,
@@ -19,6 +31,16 @@ function getFilenames(key) {
   ];
 }
 
+/**
+ * Controller to generate, save and serve screenshots.
+ *
+ * 1. Generate filenames for screenshots
+ * 2. Run command to generate screenshots
+ * 3. Serve screenshots
+ *
+ * @param {Object} req - The route’s request object.
+ * @param {Object} res - The route’s response object.
+ */
 module.exports = (req, res) => {
   res.set('Content-Type', 'application/json');
 
