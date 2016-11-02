@@ -6,7 +6,7 @@
   "scripts": {
     "build": "gulp",
     "screenshot": "phantomjs bin/screenshot.js",
-    "start": "node index.js"
+    "start": "node kontraster.js"
   },
   "bin": "./kontraster.js",
   "dependencies": {

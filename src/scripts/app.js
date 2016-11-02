@@ -28,9 +28,10 @@ function getScreenshotImages(screenshotsUrl) {
   return new Promise((resolve, reject) => {
     fetch(screenshotsUrl)
     .then(response => response.json())
-    .then(data => Promise.all([
-      fetchImage(data.screenshotUrl),
-      fetchImage(data.screenshotWithoutTextUrl),
+    .then(screenshotUrls => Promise.all([
+      fetchImage(screenshotUrls.base),
+      fetchImage(screenshotUrls.headings),
+      fetchImage(screenshotUrls.text),
     ]))
     .then(resolve)
     .catch(reject);
@@ -41,20 +42,22 @@ const contrastMapContainer = document.querySelector('.js-contrast-map');
 
 // Only initialize contrast map contrastMapContainer exists in document
 if (contrastMapContainer) {
-  let contrastMapImage;
-  let contrastMapImageWithoutText;
+  let contrastMapImageBase;
+  let contrastMapImageHeadings;
+  let contrastMapImageText;
 
   // Fetch the images the client should load for the contrast map
   getScreenshotImages(contrastMapContainer.getAttribute('data-contrast-image-url'))
   .then((images) => {
-    [contrastMapImage, contrastMapImageWithoutText] = images;
-    contrastMapImage.classList.add('contrast-map__image');
+    [contrastMapImageBase, contrastMapImageHeadings, contrastMapImageText] = images;
+    contrastMapImageBase.classList.add('contrast-map__image');
 
     // Load required images and shaders
     return Promise.all([
       fetchShaders(),
-      imageOnLoad(contrastMapImage),
-      imageOnLoad(contrastMapImageWithoutText),
+      imageOnLoad(contrastMapImageBase),
+      imageOnLoad(contrastMapImageHeadings),
+      imageOnLoad(contrastMapImageText),
     ]);
   }, err => console.error('Unable to get screenshots', err))
 
@@ -66,14 +69,15 @@ if (contrastMapContainer) {
 
     // Create the contrast map
     const contrastMap = createContrastMap(
-      contrastMapImage,
-      contrastMapImageWithoutText,
+      contrastMapImageBase,
+      contrastMapImageHeadings,
+      contrastMapImageText,
       fragmentShaderContent,
       vertexShaderContent
     );
 
     // Show contrast map on the document
-    contrastMapContainer.appendChild(contrastMapImage);
+    contrastMapContainer.appendChild(contrastMapImageBase);
     contrastMap.canvas.classList.add('contrast-map__overlay');
     contrastMapContainer.appendChild(contrastMap.canvas);
     contrastMapContainer.classList.add('contrast-map--ready');

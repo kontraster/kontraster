@@ -1,7 +1,8 @@
 precision mediump float;
 
-uniform sampler2D uTexture;
-uniform sampler2D uReferenceTexture;
+uniform sampler2D uTextureBase;
+uniform sampler2D uTextureHeadings;
+uniform sampler2D uTextureText;
 uniform vec2 uTextureSize;
 
 varying highp vec2 vTexturePosition;
@@ -39,35 +40,46 @@ bool shouldRenderContrastRatio(vec4 color, vec4 referenceColor) {
   );
 }
 
-void main() {
-  vec4 color = texture2D(uTexture, vTexturePosition);
-  vec4 referenceColor = texture2D(uReferenceTexture, vTexturePosition);
-  vec4 outputColor = vec4(.0, .0, .0, .0);
-
-  if (!shouldRenderContrastRatio(color, referenceColor)) {
-    gl_FragColor = outputColor;
-    return;
-  }
-
+float getContrastRatio(sampler2D targetTexture) {
+  vec4 color = texture2D(uTextureBase, vTexturePosition);
+  vec4 targetColor = texture2D(targetTexture, vTexturePosition);
   float contrastRatio = 0.0;
+
+  if (!shouldRenderContrastRatio(color, targetColor)) {
+    return contrastRatio;
+  }
 
   for (int offset = 1; offset <= 4; offset++) {
     float offsetFloat = float(offset);
 
-    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTexture, vTexturePosition + vec2(0.0, -offsetFloat / uTextureSize.y))));
-    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTexture, vTexturePosition + vec2(offsetFloat / uTextureSize.x, 0.0))));
-    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTexture, vTexturePosition + vec2(0.0, offsetFloat / uTextureSize.y))));
-    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTexture, vTexturePosition + vec2(-offsetFloat / uTextureSize.x, 0.0))));
+    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTextureBase, vTexturePosition + vec2(0.0, -offsetFloat / uTextureSize.y))));
+    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTextureBase, vTexturePosition + vec2(offsetFloat / uTextureSize.x, 0.0))));
+    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTextureBase, vTexturePosition + vec2(0.0, offsetFloat / uTextureSize.y))));
+    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTextureBase, vTexturePosition + vec2(-offsetFloat / uTextureSize.x, 0.0))));
   }
 
-  if (contrastRatio >= 7.0) {
+  return contrastRatio;
+}
+
+void main() {
+  vec4 outputColor = vec4(.0, .0, .0, .0);
+
+  float contrastRatioHeadings = getContrastRatio(uTextureHeadings);
+  float contrastRatioText = getContrastRatio(uTextureText);
+
+  // Level AAA
+  if (contrastRatioHeadings >= 4.5 || contrastRatioText >= 7.0) {
     outputColor.g = 1.0;
     outputColor.a = 1.0;
-  } else if (contrastRatio >= 4.5) {
+  }
+  // Level AA
+  else if (contrastRatioHeadings >= 3.0 || contrastRatioText >= 4.5) {
     outputColor.r = 1.0;
     outputColor.g = .5;
     outputColor.a = 1.0;
-  } else {
+  }
+  // Level A
+  else if (contrastRatioHeadings > .0 || contrastRatioText > .0) {
     outputColor.r = 1.0;
     outputColor.a = 1.0;
   }

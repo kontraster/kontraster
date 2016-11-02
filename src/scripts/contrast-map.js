@@ -102,15 +102,22 @@ function createTexture(gl, image) {
 /**
  * Create a contrast map.
  *
- * @param {Image} image - The base image.
- * @param {Image} imageWithoutText - Reference image without text.
+ * @param {Image} imageBase - The base image.
+ * @param {Image} imageHeadings - The exclusively containing headings.
+ * @param {Image} imageText - The exclusively containing plain text.
  * @param {String} fragmentShaderContent - The fragment shader source.
  * @param {String} vertexShaderContent - The vertex shader source;
  * @return {Object}
  */
-function createContrastMap(image, imageWithoutText, fragmentShaderContent, vertexShaderContent) {
-  const height = image.naturalHeight;
-  const width = image.naturalWidth;
+function createContrastMap(
+  imageBase,
+  imageHeadings,
+  imageText,
+  fragmentShaderContent,
+  vertexShaderContent
+) {
+  const height = imageBase.naturalHeight;
+  const width = imageBase.naturalWidth;
 
   const canvas = document.createElement('canvas');
   canvas.height = height;
@@ -135,16 +142,21 @@ function createContrastMap(image, imageWithoutText, fragmentShaderContent, verte
     gl.vertexAttribPointer(aTexturePosition, 2, gl.FLOAT, false, 0, 0);
   }
 
-  const imageTexture = createTexture(gl, image);
-  const imageWithoutTextTexture = createTexture(gl, imageWithoutText);
+  const imageBaseTexture = createTexture(gl, imageBase);
+  const imageHeadingsTexture = createTexture(gl, imageHeadings);
+  const imageTextTexture = createTexture(gl, imageText);
 
   gl.activeTexture(gl.TEXTURE0);
-  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uTexture'), 0);
-  gl.bindTexture(gl.TEXTURE_2D, imageTexture);
+  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uTextureBase'), 0);
+  gl.bindTexture(gl.TEXTURE_2D, imageBaseTexture);
 
   gl.activeTexture(gl.TEXTURE1);
-  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uReferenceTexture'), 1);
-  gl.bindTexture(gl.TEXTURE_2D, imageWithoutTextTexture);
+  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uTextureHeadings'), 1);
+  gl.bindTexture(gl.TEXTURE_2D, imageHeadingsTexture);
+
+  gl.activeTexture(gl.TEXTURE2);
+  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uTextureText'), 2);
+  gl.bindTexture(gl.TEXTURE_2D, imageTextTexture);
 
   const uTextureSize = gl.getUniformLocation(shaderProgram, 'uTextureSize');
   gl.uniform2fv(uTextureSize, [width, height]);
