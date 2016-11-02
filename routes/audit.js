@@ -22,5 +22,5 @@ module.exports = (req, res) => {
     viewParameters.error = 'URL is invalid.';
   }
 
-  res.render('validate', viewParameters);
+  res.render('audit', viewParameters);
 };

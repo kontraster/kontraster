@@ -40,7 +40,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Define the app’s routes
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', require('./routes/index'));
-app.get('/validate', require('./routes/validate'));
+app.get('/audit', require('./routes/audit'));
 app.get('/get-screenshots', require('./routes/get-screenshots'));
 
 // Define a fall-back 404 page route
