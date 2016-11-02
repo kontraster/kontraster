@@ -5,7 +5,7 @@
   },
   "scripts": {
     "build": "gulp",
-    "screenshot": "phantomjs screenshot.js",
+    "screenshot": "phantomjs bin/screenshot.js",
     "start": "node index.js"
   },
   "bin": "./kontraster.js",
