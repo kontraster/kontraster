@@ -1,8 +1,12 @@
 # Kontraster
 
-Kontraster is a tool to validate text colour contrast on websites for optimal readability.
+Kontraster is a tool to help audit text colour contrast on websites.
 
 ![Screenshot of Kontraster](docs/screenshot.jpg)
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/)
 
 ## Installation
 
