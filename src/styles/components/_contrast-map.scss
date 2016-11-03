@@ -50,6 +50,14 @@
   z-index: 1;
 
   list-style-type: none;
+
+  cursor: default;
+  opacity: 1;
+  transition: opacity $animation-speed--fast;
+
+  &:hover {
+    opacity: .25;
+  }
 }
 .contrast-map__legend-level--aaa {
   color: #0f0;
