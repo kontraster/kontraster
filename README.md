@@ -10,7 +10,7 @@ Kontraster is a tool to help audit text colour contrast on websites.
 
 ## Installation
 
-```js
+```shell
 # Download Kontraster
 git clone git@github.com:timseverien/kontraster.git
 cd contraster
