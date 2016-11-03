@@ -40,13 +40,13 @@ page.open(address, function (status) {
          * Hide an element’s text.
          */
         hideElementText: function (element) {
-          element.style.color = 'transparent';
+          element.style.cssText = element.style.cssTextOriginal + '; color: transparent !important';
         },
         /**
          * Reset text visibility for given element to initial CSS values.
          */
         resetElementTextVisibility: function (element) {
-          element.style.color = '';
+          element.style.cssText = element.style.cssTextOriginal;
         },
       };
 
@@ -91,18 +91,15 @@ page.open(address, function (status) {
 
       var elements = Array.prototype.slice.call(document.querySelectorAll('body *'));
       window.screenshot.headingElements = elements.filter(isElementTextLargeScale);
-
-      window.screenshot.headingElements.forEach(function (element) {
-        element.style.color = window.getComputedStyle(element).color;
-      });
-
       window.screenshot.textElements = elements.filter(isNotElementTextLargeScale);
-  });
 
-  page.evaluate(function () {
-    if (!document.body.style.backgroundColor) {
-      document.body.style.backgroundColor = 'white';
-    }
+      if (!document.body.style.backgroundColor) {
+        document.body.style.backgroundColor = 'white';
+      }
+
+      elements.forEach(function (element) {
+        element.style.cssTextOriginal = element.style.cssText;
+      });
   });
 
   setTimeout(function () {
