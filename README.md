@@ -10,6 +10,8 @@ Kontraster is a tool to help audit text colour contrast on websites.
 
 ## Installation
 
+To install Kontraster, execute the following lines in terminal:
+
 ```shell
 # Download Kontraster
 git clone git@github.com:timseverien/kontraster.git
