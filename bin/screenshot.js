@@ -12,8 +12,13 @@ var outputSettings = { format: 'png' };
 
 var preRenderDelay = 1000;
 
-if (address.toString().length === 0) {
-  console.error('Usage: screenshot.js URL');
+if (
+  address.toString().length === 0 ||
+  screenshotOutputBase.toString().length === 0 ||
+  screenshotOutputHeadings.toString().length === 0 ||
+  screenshotOutputText.toString().length === 0
+) {
+  console.error('Usage: screenshot.js ');
   phantom.exit(1);
 }
 
@@ -32,19 +37,6 @@ page.open(address, function (status) {
   page.evaluate(function () {
       window.screenshot = {
         /**
-         * Test whether an element’s font weight is bold-ish.
-         * @see https://www.w3.org/wiki/CSS/Properties/font-weight#Values
-         * @return {Boolean}
-         */
-        isComputedFontWeightBold: function (computedStyle) {
-          return (
-            // Check if font weight is explicitly set to bold
-            computedStyle.fontWeight === 'bold' ||
-            // Check if font weight is equal or larger than 700, and therefore bold
-            parseInt(computedStyle.fontWeight) >= 700
-          );
-        },
-        /**
          * Hide an element’s text.
          */
         hideElementText: function (element) {
@@ -59,6 +51,20 @@ page.open(address, function (status) {
       };
 
       /**
+       * Test whether an element’s font weight is bold-ish.
+       * @see https://www.w3.org/wiki/CSS/Properties/font-weight#Values
+       * @return {Boolean}
+       */
+      function isComputedFontWeightBold(computedStyle) {
+        return (
+          // Check if font weight is explicitly set to bold
+          computedStyle.fontWeight === 'bold' ||
+          // Check if font weight is equal or larger than 700, and therefore bold
+          parseInt(computedStyle.fontWeight) >= 700
+        );
+      }
+
+      /**
        * Test whether given element’s text is considered large scale.
        * @see https://www.w3.org/TR/WCAG20/#larger-scaledef
        * @return {Boolean}
@@ -71,7 +77,7 @@ page.open(address, function (status) {
         // http://reeddesign.co.uk/test/points-pixels.html
         return (
           fontSize >= 24 ||
-          fontSize >= 19 && isElementBold(computedStyle)
+          fontSize >= 19 && isComputedFontWeightBold(computedStyle)
         );
       }
 
@@ -99,30 +105,28 @@ page.open(address, function (status) {
     }
   });
 
-  function prepareHeadingScreenshot() {
-    window.screenshot.textElements.forEach(window.screenshot.hideElementText);
-  }
-
-  function prepareTextScreenshot() {
-    window.screenshot.headingElements.forEach(window.screenshot.hideElementText);
-    window.screenshot.textElements.forEach(window.screenshot.resetElementTextVisibility);
-  }
-
-  // Render a base image
-  page.render(screenshotOutputBase, outputSettings);
-
-  // Hide plain text and render image
-  page.evaluate(prepareHeadingScreenshot);
-
   setTimeout(function () {
-    page.render(screenshotOutputHeadings, outputSettings);
+    // Render a base image
+    page.render(screenshotOutputBase, outputSettings);
 
-    // Hide headings, reset plain text visibility, and render an image
-    page.evaluate(prepareTextScreenshot);
+    // Hide plain text and render image
+    page.evaluate(function prepareHeadingScreenshot() {
+      window.screenshot.textElements.forEach(window.screenshot.hideElementText);
+    });
 
     setTimeout(function () {
-      page.render(screenshotOutputText, outputSettings);
-      phantom.exit();
+      page.render(screenshotOutputHeadings, outputSettings);
+
+      // Hide headings, reset plain text visibility, and render an image
+      page.evaluate(function prepareTextScreenshot() {
+        window.screenshot.headingElements.forEach(window.screenshot.hideElementText);
+        window.screenshot.textElements.forEach(window.screenshot.resetElementTextVisibility);
+      });
+
+      setTimeout(function () {
+        page.render(screenshotOutputText, outputSettings);
+        phantom.exit();
+      }, preRenderDelay);
     }, preRenderDelay);
   }, preRenderDelay);
 });
