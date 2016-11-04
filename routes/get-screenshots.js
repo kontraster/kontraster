@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const path = require('path');
-const spawn = require('child_process').spawn;
+const exec = require('child_process').exec;
 const UrlValidator = require('valid-url');
 
 const screenshotDirectory = path.resolve(`${__dirname}/../public`);
@@ -58,19 +58,17 @@ module.exports = (req, res) => {
   ] = getScreenshotFilenames(req.query.url);
 
   // Generate screenshots
-  const screenshotProcess = spawn('npm', ['run', '--silent', 'screenshot', '--',
+  const command = [
+    'npm run --silent screenshot --',
     req.query.url,
     path.join(screenshotDirectory, screenshotPath, screenshotBaseFileFileName),
     path.join(screenshotDirectory, screenshotPath, screenshotHeadingFileName),
     path.join(screenshotDirectory, screenshotPath, screenshotTextFileName),
-  ], {
-    stdio: 'ignore',
-  });
+  ].join(' ');
 
-  // Send response once the process is finished
-  screenshotProcess.on('close', (code) => {
-    if (code > 0) {
-      screenshotProcess.kill();
+  exec(command, (err) => {
+    if (err) {
+      console.error('Unable to create screenshots:', err);
       res.status(400).end();
       return;
     }
