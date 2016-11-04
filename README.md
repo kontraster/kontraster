@@ -14,8 +14,8 @@ To install Kontraster, execute the following lines in terminal:
 
 ```shell
 # Download Kontraster
-git clone git@github.com:timseverien/kontraster.git
-cd contraster
+git clone https://github.com/timseverien/kontraster.git
+cd kontraster
 
 # Install dependencies
 npm install
