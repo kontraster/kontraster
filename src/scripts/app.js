@@ -42,6 +42,11 @@ const contrastMapContainer = document.querySelector('.js-contrast-map');
 
 // Only initialize contrast map contrastMapContainer exists in document
 if (contrastMapContainer) {
+
+  const contrastMapImageWrapper = document.createElement('div');
+  contrastMapImageWrapper.classList.add('contrast-map__image-wrapper');
+  contrastMapContainer.appendChild(contrastMapImageWrapper);
+
   let contrastMapImageBase;
   let contrastMapImageHeadings;
   let contrastMapImageText;
@@ -77,9 +82,9 @@ if (contrastMapContainer) {
     );
 
     // Show contrast map on the document
-    contrastMapContainer.appendChild(contrastMapImageBase);
+    contrastMapImageWrapper.appendChild(contrastMapImageBase);
     contrastMap.canvas.classList.add('contrast-map__overlay');
-    contrastMapContainer.appendChild(contrastMap.canvas);
+    contrastMapImageWrapper.appendChild(contrastMap.canvas);
     contrastMapContainer.classList.add('contrast-map--ready');
 
     // TODO: Analyse canvas.pixels for data and to give user advice

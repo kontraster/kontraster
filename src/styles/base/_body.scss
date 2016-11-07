@@ -1,17 +1,19 @@
 html {
   font-size: 100%;
   line-height: $line-height;
+  font-family: "Segoe UI", Segoe, Tahoma, Geneva, sans-serif;
 }
 
 body {
-  background-color: #fafafa;
-  color: #222;
+  background-color: #3d3d40;
+  color: #e4e4e4;
+  padding: 3em;
 }
 
 * {
   box-sizing: border-box;
 }
 
-:focus {
-  outline: 2px solid $branding--primary;
-}
+//:focus {
+//  outline: 2px solid $branding--primary;
+//}

@@ -69,18 +69,23 @@ void main() {
 
   // Level AAA
   if (contrastRatioHeadings >= 4.5 || contrastRatioText >= 7.0) {
-    outputColor.g = 1.0;
+    outputColor.r = .51372549;
+    outputColor.g = .847058824;
+    outputColor.b = .070588235;
     outputColor.a = 1.0;
   }
   // Level AA
   else if (contrastRatioHeadings >= 3.0 || contrastRatioText >= 4.5) {
     outputColor.r = 1.0;
-    outputColor.g = .5;
+    outputColor.g = .658823529;
+    outputColor.b = .290196078;
     outputColor.a = 1.0;
   }
   // Level A
   else if (contrastRatioHeadings > .0 || contrastRatioText > .0) {
-    outputColor.r = 1.0;
+    outputColor.r = .968627451;
+    outputColor.g = .349019608;
+    outputColor.b = .294117647;
     outputColor.a = 1.0;
   }
 

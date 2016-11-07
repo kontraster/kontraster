@@ -1,0 +1,19 @@
+.quick-input {
+
+	display:flex;
+	align-items:stretch;
+	justify-content:center;
+	flex-wrap:nowrap;
+
+	margin:2em 0;
+
+	input {
+		margin:2px 0;
+	}
+
+	button {
+		margin-left:1em;
+		white-space:nowrap;
+	}
+
+}
