@@ -23,15 +23,15 @@ npm install
 npm run build --production
 
 # Start server
-./kontraster.js
+node ./kontraster.js
 ```
 
-After starting the server by executing `./kontraster.js`, a localhost address should appear in the console. Open that address in the browser. The rest should be self-explanatory.
+After starting the server by executing `node ./kontraster.js`, a localhost address should appear in the console. Open that address in the browser. The rest should be self-explanatory.
 
 ## CLI Usage
 
 ```shell
-$ ./kontraster [options]
+$ node ./kontraster.js [options]
 ```
 
 ### Options
