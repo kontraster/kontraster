@@ -90,13 +90,10 @@ page.open(address, function (status) {
       }
 
       var elements = Array.prototype.slice.call(document.querySelectorAll('body *'));
+      window.screenshot.elements = elements;
       window.screenshot.headingElements = elements.filter(isElementTextLargeScale);
       window.screenshot.textElements = elements.filter(isNotElementTextLargeScale);
-
-      if (!document.body.style.backgroundColor) {
-        document.body.style.backgroundColor = 'white';
-      }
-
+      
       elements.forEach(function (element) {
         element.style.cssTextOriginal = element.style.cssText;
       });
