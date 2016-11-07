@@ -1,12 +1,19 @@
+form {
+
+}
+
 label {
-  display: block;
-  margin-bottom: $spacing--smaller;
-  font-weight: bold;
+  display: none; // use 'implicit' class
 }
 
 input, textarea {
   width: 100%;
-  padding: $spacing--smaller;
-  border: 1px solid #444;
-  margin-bottom: $spacing--small;
+
+  color: #222;
+  background:#eee;
+  border:none;
+  border-radius: .25em;
+  padding: 0 .75em;
+
+  box-shadow:inset 0 .125em .25em rgba(0,0,0,.25);
 }

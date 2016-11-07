@@ -1,6 +1,12 @@
 h1, h2, h3, h4, h5, h6 {
   margin-top: $font-size * $line-height--heading * .5;
   margin-bottom: $font-size * $line-height--heading * .25;
-  font-family: sans-serif;
   line-height: $line-height--heading;
+  font-weight: normal;
 }
+
+h1 {
+  text-transform:uppercase;
+  margin-bottom:1em;
+}
+
