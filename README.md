@@ -38,3 +38,8 @@ $ node ./kontraster.js [options]
 
 - `--port`, `-p`: The port to run the server on (default: 3000)
 - `--help`, `-h`: The help message
+
+## Contributors
+
+- Tim Severien ([Twitter](https://twitter.com/timseverien), [Website](https://timseverien.com/))
+- Rik Schennink ([Twitter](https://twitter.com/rikschennink))
