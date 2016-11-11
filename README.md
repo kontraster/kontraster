@@ -42,4 +42,4 @@ $ node ./kontraster.js [options]
 ## Contributors
 
 - Tim Severien ([Twitter](https://twitter.com/timseverien), [Website](https://timseverien.com/))
-- Rik Schennink ([Twitter](https://twitter.com/rikschennink))
+- Rik Schennink ([Twitter](https://twitter.com/rikschennink), [Website](http://rikschennink.nl/))
