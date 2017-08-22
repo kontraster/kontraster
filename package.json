@@ -1,45 +1,8 @@
 {
-  "name": "kontraster",
-  "config": {
-    "port": 3000
-  },
-  "scripts": {
-    "build": "gulp",
-    "screenshot": "phantomjs bin/screenshot.js",
-    "start": "node kontraster.js"
-  },
-  "bin": "./kontraster.js",
-  "dependencies": {
-    "chalk": "^1.1.3",
-    "express": "^4.14.0",
-    "express-handlebars": "^3.0.0",
-    "meow": "^3.7.0",
-    "mustache": "^2.2.1",
-    "mustache-express": "^1.2.2",
-    "phantomjs-prebuilt": "^2.1.13",
-    "valid-url": "^1.0.9"
-  },
+  "name": "kontraster-cli",
   "devDependencies": {
-    "babel-preset-es2015": "^6.16.0",
-    "babelify": "^7.3.0",
-    "browser-sync": "^2.17.5",
-    "browserify": "^13.1.1",
-    "del": "^2.2.2",
-    "eslint": "^3.8.1",
-    "eslint-config-airbnb": "^12.0.0",
-    "eslint-plugin-import": "^1.16.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.4.1",
-    "gulp": "git+https://github.com/gulpjs/gulp.git#4.0",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-imagemin": "^3.1.0",
-    "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^2.2.0",
-    "gulp-uglify": "^2.0.0",
-    "gulp-util": "^3.0.7",
-    "normalize.scss": "^0.1.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "whatwg-fetch": "^1.0.0"
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0"
   }
 }
