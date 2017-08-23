@@ -1,23 +1,36 @@
 # Kontraster
 
-Kontraster is a CLI tool to help audit text colour contrast.
-
-## Prerequisites
-
-- [Node.js and npm](https://nodejs.org/)
+Kontraster is a tool to help audit text colour contrast.
 
 ## Installation
 
-To install kontraster, execute the following lines in terminal:
+```shell
+npm install kontraster
+```
+
+If you wish to run kontraster as a CLI tool outside of a project, you may want to install kontraster globally:
 
 ```shell
 npm install kontraster -g
 ```
 
-## Usage
+## Node usage
+
+```js
+const kontraster = require('kontraster');
+
+kontraster(baseImage, overlayImage, {
+	isLargeText: false,
+	level: 'AA',
+	output: './output.png',
+	outputType: 'overlay',
+});
+```
+
+## CLI Usage
 
 ```shell
-$ konstraster <base image> <overlay image> [options]
+konstraster <base image> <overlay image> [options]
 ```
 
 ### Options
