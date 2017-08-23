@@ -1,9 +1,14 @@
 {
-  "name": "kontraster-cli",
+  "name": "kontraster",
+  "description": "Kontraster is a tool to help audit text colour contrast",
+  "version": "0.0.0",
+  "main": "index.js",
   "bin": {
     "kontraster": "./cli.js"
   },
-  "main": "./index.js",
+  "directories": {
+    "lib": "lib"
+  },
   "dependencies": {
     "connect": "^3.6.3",
     "fs-extra": "^4.0.1",
@@ -16,5 +21,15 @@
     "eslint": "^4.5.0",
     "eslint-config-airbnb-base": "^11.3.1",
     "eslint-plugin-import": "^2.7.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kontraster/kontraster-cli.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kontraster/kontraster-cli/issues"
+  },
+  "homepage": "https://github.com/kontraster/kontraster-cli#readme"
 }
