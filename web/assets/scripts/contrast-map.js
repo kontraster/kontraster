@@ -64,10 +64,9 @@ function createTexture(gl, image) {
 
 function createContrastMap(
 	imageBase,
-	imageHeadings,
 	imageText,
-	fragmentShaderContent,
-	vertexShaderContent
+	shaderFragmentContent,
+	shaderVertexContent,
 ) {
 	const height = imageBase.naturalHeight;
 	const width = imageBase.naturalWidth;
@@ -80,9 +79,9 @@ function createContrastMap(
 	createVertexPositionBuffer(gl);
 	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
-	const fragmentShader = createShader(gl, fragmentShaderContent, gl.FRAGMENT_SHADER);
-	const vertexShader = createShader(gl, vertexShaderContent, gl.VERTEX_SHADER);
-	const shaderProgram = createShaderProgram(gl, fragmentShader, vertexShader);
+	const shaderFragment = createShader(gl, shaderFragmentContent, gl.FRAGMENT_SHADER);
+	const shaderVertex = createShader(gl, shaderVertexContent, gl.VERTEX_SHADER);
+	const shaderProgram = createShaderProgram(gl, shaderFragment, shaderVertex);
 
 	const aVertexPosition = gl.getAttribLocation(shaderProgram, 'aVertexPosition');
 	gl.enableVertexAttribArray(aVertexPosition);
@@ -96,7 +95,6 @@ function createContrastMap(
 	}
 
 	const imageBaseTexture = createTexture(gl, imageBase);
-	const imageHeadingsTexture = createTexture(gl, imageHeadings);
 	const imageTextTexture = createTexture(gl, imageText);
 
 	gl.activeTexture(gl.TEXTURE0);
@@ -104,11 +102,7 @@ function createContrastMap(
 	gl.bindTexture(gl.TEXTURE_2D, imageBaseTexture);
 
 	gl.activeTexture(gl.TEXTURE1);
-	gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uTextureHeadings'), 1);
-	gl.bindTexture(gl.TEXTURE_2D, imageHeadingsTexture);
-
-	gl.activeTexture(gl.TEXTURE2);
-	gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uTextureText'), 2);
+	gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uTextureText'), 1);
 	gl.bindTexture(gl.TEXTURE_2D, imageTextTexture);
 
 	const uTextureSize = gl.getUniformLocation(shaderProgram, 'uTextureSize');

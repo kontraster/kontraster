@@ -1,11 +1,16 @@
+// TODO: Configure this via CLI
+#define OVERLAY
+#define OVERLAY_COLOR vec4(1.0, 0.0, 0.0, 1.0)
+
 precision mediump float;
 
 uniform sampler2D uTextureBase;
-uniform sampler2D uTextureHeadings;
 uniform sampler2D uTextureText;
 uniform vec2 uTextureSize;
 
 varying highp vec2 vTexturePosition;
+
+const float minContrastRatio = {{minContrastRatio}};
 
 float getChannelLuminance(float channel) {
   if (channel <= 0.03928) {
@@ -33,61 +38,28 @@ float getContrastRatio(vec4 aColor, vec4 bColor) {
 bool shouldRenderContrastRatio(vec4 color, vec4 referenceColor) {
   bvec4 isColorEqual = equal(color, referenceColor);
 
-  return (
-    !isColorEqual.r ||
-    !isColorEqual.g ||
-    !isColorEqual.b
+  return !(
+    isColorEqual.r &&
+    isColorEqual.g &&
+    isColorEqual.b
   );
 }
 
-float getContrastRatio(sampler2D targetTexture) {
-  vec4 color = texture2D(uTextureBase, vTexturePosition);
-  vec4 targetColor = texture2D(targetTexture, vTexturePosition);
-  float contrastRatio = 0.0;
-
-  if (!shouldRenderContrastRatio(color, targetColor)) {
-    return contrastRatio;
-  }
-
-  for (int offset = 1; offset <= 4; offset++) {
-    float offsetFloat = float(offset);
-
-    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTextureBase, vTexturePosition + vec2(0.0, -offsetFloat / uTextureSize.y))));
-    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTextureBase, vTexturePosition + vec2(offsetFloat / uTextureSize.x, 0.0))));
-    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTextureBase, vTexturePosition + vec2(0.0, offsetFloat / uTextureSize.y))));
-    contrastRatio = max(contrastRatio, getContrastRatio(color, texture2D(uTextureBase, vTexturePosition + vec2(-offsetFloat / uTextureSize.x, 0.0))));
-  }
-
-  return contrastRatio;
-}
-
 void main() {
-  vec4 outputColor = vec4(.0, .0, .0, .0);
+	vec4 colorBase = texture2D(uTextureBase, vTexturePosition);
+  vec4 colorText = texture2D(uTextureText, vTexturePosition);
 
-  float contrastRatioHeadings = getContrastRatio(uTextureHeadings);
-  float contrastRatioText = getContrastRatio(uTextureText);
+	if (
+		shouldRenderContrastRatio(colorBase, colorText) &&
+		getContrastRatio(colorBase, colorText) < minContrastRatio
+	) {
+		gl_FragColor = OVERLAY_COLOR;
+		return;
+	}
 
-  // Level AAA
-  if (contrastRatioHeadings >= 4.5 || contrastRatioText >= 7.0) {
-    outputColor.r = .51372549;
-    outputColor.g = .847058824;
-    outputColor.b = .070588235;
-    outputColor.a = 1.0;
-  }
-  // Level AA
-  else if (contrastRatioHeadings >= 3.0 || contrastRatioText >= 4.5) {
-    outputColor.r = 1.0;
-    outputColor.g = .658823529;
-    outputColor.b = .290196078;
-    outputColor.a = 1.0;
-  }
-  // Level A
-  else if (contrastRatioHeadings > .0 || contrastRatioText > .0) {
-    outputColor.r = .968627451;
-    outputColor.g = .349019608;
-    outputColor.b = .294117647;
-    outputColor.a = 1.0;
-  }
-
-  gl_FragColor = outputColor;
+	#ifdef OVERLAY
+		gl_FragColor = texture2D(uTextureText, vTexturePosition);
+	#else
+		discard;
+	#endif
 }

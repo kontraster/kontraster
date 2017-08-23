@@ -7,6 +7,7 @@
   "dependencies": {
     "connect": "^3.6.3",
     "fs-extra": "^4.0.1",
+    "image-size": "^0.6.1",
     "meow": "^3.7.0",
     "puppeteer": "^0.9.0",
     "serve-static": "^1.12.4"

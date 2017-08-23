@@ -1,31 +1,30 @@
-const fetchImage = (url) => {
-	const image = new Image();
+/* global createContrastMap, fetchImage */
 
-  return new Promise((resolve, reject) => {
-    if (image.complete) return resolve(image);
+const getResponseText = res => res.text();
 
-    image.addEventListener('load', function imageOnLoadHandler() {
-      image.removeEventListener('load', imageOnLoadHandler);
-      resolve(image);
-    });
+(async () => {
+	const [
+		imageBase,
+		imageText,
+		shaderFragment,
+		shaderVertex,
+		minContrastRatio,
+	] = await Promise.all([
+		fetchImage('/image-base'),
+		fetchImage('/image-text'),
+		fetch('/assets/shaders/contrast-map.frag.glsl').then(getResponseText),
+		fetch('/assets/shaders/contrast-map.vert.glsl').then(getResponseText),
+		fetch('/contrast-ratio').then(getResponseText),
+	]);
 
-		image.addEventListener('error', (err) => reject(err.message));
+	const contrastMap = createContrastMap(
+		imageBase,
+		imageText,
+		shaderFragment.replace('{{minContrastRatio}}', minContrastRatio),
+		shaderVertex,
+	);
 
-		image.src = url;
-  });
-};
+	document.body.appendChild(contrastMap.canvas);
 
-const fetchGetText = res => res.text();
-
-Promise.all([
-	fetchImage('/image-base'),
-	fetchImage('/image-text'),
-	fetch('/assets/shaders/contrast-map.frag.glsl').then(fetchGetText),
-	fetch('/assets/shaders/contrast-map.vert.glsl').then(fetchGetText),
-])
-	.then((imagesAndShaders) => {
-		const contrastMap = createContrastMap(...imagesAndShaders);
-
-		document.body.appendChild(contrastMap.canvas);
-	})
-	.catch(err => console.error(err.message));
+	console.log('Contrast map rendered');
+})();
