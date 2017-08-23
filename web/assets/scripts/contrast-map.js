@@ -1,5 +1,10 @@
 function getWebGLContext(canvas) {
 	const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+	if (!gl) {
+		throw new Error('WebGL is not supported');
+	}
+
 	gl.viewportWidth = canvas.width;
 	gl.viewportHeight = canvas.height;
 
@@ -15,6 +20,7 @@ function createShader(gl, shaderContent, shaderType) {
 	if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
 		throw new Error(gl.getShaderInfoLog(shader));
 	}
+
 	return shader;
 }
 

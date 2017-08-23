@@ -1,7 +1,3 @@
-// TODO: Configure this via CLI
-#define OVERLAY
-#define OVERLAY_COLOR vec4(1.0, 0.0, 0.0, 1.0)
-
 precision mediump float;
 
 uniform sampler2D uTextureBase;
@@ -9,8 +5,6 @@ uniform sampler2D uTextureText;
 uniform vec2 uTextureSize;
 
 varying highp vec2 vTexturePosition;
-
-const float minContrastRatio = {{minContrastRatio}};
 
 float getChannelLuminance(float channel) {
   if (channel <= 0.03928) {
@@ -51,13 +45,18 @@ void main() {
 
 	if (
 		shouldRenderContrastRatio(colorBase, colorText) &&
-		getContrastRatio(colorBase, colorText) < minContrastRatio
+		getContrastRatio(colorBase, colorText) < CONTRAST_RATIO
 	) {
-		gl_FragColor = OVERLAY_COLOR;
+		#ifdef IS_MASK
+			gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+		#else
+			gl_FragColor = OVERLAY_COLOR;
+		#endif
+
 		return;
 	}
 
-	#ifdef OVERLAY
+	#ifdef IS_COMPOSITION
 		gl_FragColor = texture2D(uTextureText, vTexturePosition);
 	#else
 		discard;

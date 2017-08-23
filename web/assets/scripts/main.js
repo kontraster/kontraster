@@ -8,19 +8,24 @@ const getResponseText = res => res.text();
 		imageText,
 		shaderFragment,
 		shaderVertex,
-		minContrastRatio,
+		info,
 	] = await Promise.all([
 		fetchImage('/image-base'),
 		fetchImage('/image-text'),
 		fetch('/assets/shaders/contrast-map.frag.glsl').then(getResponseText),
 		fetch('/assets/shaders/contrast-map.vert.glsl').then(getResponseText),
-		fetch('/contrast-ratio').then(getResponseText),
+		fetch('/info').then(res => res.json()),
 	]);
+
+	const shaderConstants = `
+#define ${info.outputType}
+#define OVERLAY_COLOR vec4(1.0, 0.0, 0.0, 1.0)
+#define CONTRAST_RATIO ${info.contrastRatio}`;
 
 	const contrastMap = createContrastMap(
 		imageBase,
 		imageText,
-		shaderFragment.replace('{{minContrastRatio}}', minContrastRatio),
+		`${shaderConstants}\n${shaderFragment}`,
 		shaderVertex,
 	);
 

@@ -1,45 +1,29 @@
 # Kontraster
 
-Kontraster is a tool to help audit text colour contrast on websites.
-
-![Screenshot of Kontraster](docs/screenshot.jpg)
+Kontraster is a CLI tool to help audit text colour contrast.
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/)
+- [Node.js and npm](https://nodejs.org/)
 
 ## Installation
 
-To install Kontraster, execute the following lines in terminal:
+To install kontraster, execute the following lines in terminal:
 
 ```shell
-# Download Kontraster
-git clone https://github.com/timseverien/kontraster.git
-cd kontraster
-
-# Install dependencies
-npm install
-# Build required assets
-npm run build --production
-
-# Start server
-node ./kontraster.js
+npm install kontraster -g
 ```
 
-After starting the server by executing `node ./kontraster.js`, a localhost address should appear in the console. Open that address in the browser. The rest should be self-explanatory.
-
-## CLI Usage
+## Usage
 
 ```shell
-$ node ./kontraster.js [options]
+$ konstraster <base image> <overlay image> [options]
 ```
 
 ### Options
 
-- `--port`, `-p`: The port to run the server on (default: 3000)
-- `--help`, `-h`: The help message
-
-## Contributors
-
-- Tim Severien ([Twitter](https://twitter.com/timseverien), [Website](https://timseverien.com/))
-- Rik Schennink ([Twitter](https://twitter.com/rikschennink), [Website](http://rikschennink.nl/))
+- `--is-large-text`: Whether the contents is large text (> 18 points, or > 14 points and bold)
+- `--level`, `-l`: The WCAG level to test ("AA" or "AAA", defaults to AA)
+- `--output`, `-o`: The path to write the output image to
+- `--output-type`, `-t`: The type of output ("composition" or "mask", defaults to composition)
+- `--help`, `-h`: Show the help message

@@ -7,12 +7,27 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Run",
-      "program": "${workspaceRoot}/index.js",
+      "name": "Run default",
+      "program": "${workspaceRoot}/cli.js",
       "args": [
         "./test/images/gradient-base.png",
         "./test/images/gradient-text.png",
-        "--output", "./output/test.png"
+        "--output",
+        "./output/test.png"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run mask",
+      "program": "${workspaceRoot}/cli.js",
+      "args": [
+        "./test/images/gradient-base.png",
+        "./test/images/gradient-text.png",
+        "--output",
+        "./output/test.png",
+        "--output-type",
+        "mask"
       ]
     }
   ]

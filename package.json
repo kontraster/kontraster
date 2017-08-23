@@ -1,7 +1,7 @@
 {
   "name": "kontraster-cli",
   "bin": {
-    "kontraster": "./index.js"
+    "kontraster": "./cli.js"
   },
   "main": "./index.js",
   "dependencies": {
