@@ -1,7 +1,7 @@
 {
   "name": "kontraster",
   "description": "Kontraster is a tool to help audit text colour contrast",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "index.js",
   "bin": {
     "kontraster": "./cli.js"
