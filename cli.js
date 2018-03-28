@@ -22,19 +22,29 @@ Examples
 `;
 
 const cli = meow(helpMessage, {
-	alias: {
-		h: 'help',
-		l: 'level',
-		o: 'output',
-		t: 'outputType',
-	},
-	boolean: ['help', 'isLargeText'],
-	string: ['level', 'output', 'outputType'],
-	default: {
-		isLargeText: false,
-		level: 'AA',
-		output: './color-contrast.png',
-		outputType: 'composition',
+	flags: {
+		help: {
+			alias: 'h',
+		},
+		isLargeText: {
+			default: false,
+			type: 'boolean',
+		},
+		level: {
+			alias: 'l',
+			default: 'AA',
+			type: 'string',
+		},
+		output: {
+			alias: 'o',
+			default: './color-contrast.png',
+			type: 'string',
+		},
+		outputType: {
+			alias: 't',
+			default: 'composition',
+			type: 'string',
+		},
 	},
 });
 

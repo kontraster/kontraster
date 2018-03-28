@@ -10,17 +10,17 @@
     "lib": "lib"
   },
   "dependencies": {
-    "connect": "^3.6.3",
-    "fs-extra": "^4.0.1",
-    "image-size": "^0.6.1",
-    "meow": "^3.7.0",
-    "puppeteer": "^0.9.0",
-    "serve-static": "^1.12.4"
+    "connect": "^3.6.6",
+    "fs-extra": "^5.0.0",
+    "image-size": "^0.6.2",
+    "meow": "^4.0.0",
+    "puppeteer": "^1.2.0",
+    "serve-static": "^1.13.2"
   },
   "devDependencies": {
-    "eslint": "^4.5.0",
-    "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
   },
   "repository": {
     "type": "git",
