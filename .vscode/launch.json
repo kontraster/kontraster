@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Run default",
-      "program": "${workspaceRoot}/cli.js",
+      "program": "${workspaceRoot}/lib/cli/kontraster.js",
       "args": [
         "./test/images/gradient-base.png",
         "./test/images/gradient-text.png",
@@ -20,7 +20,7 @@
       "type": "node",
       "request": "launch",
       "name": "Run mask",
-      "program": "${workspaceRoot}/cli.js",
+      "program": "${workspaceRoot}/lib/cli/kontraster.js",
       "args": [
         "./test/images/gradient-base.png",
         "./test/images/gradient-text.png",

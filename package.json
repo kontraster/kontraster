@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "bin": {
-    "kontraster": "./cli.js"
+    "kontraster": "./lib/cli/kontraster.js",
+    "kontraster-web": "./lib/cli/kontraster-web.js"
   },
   "directories": {
     "lib": "lib"
