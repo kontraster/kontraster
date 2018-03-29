@@ -1,4 +1,4 @@
-const fetchImage = (url) => {
+export default (url) => {
 	const image = new Image();
 
 	return new Promise((resolve, reject) => {

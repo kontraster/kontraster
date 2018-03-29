@@ -2,6 +2,7 @@
     "extends": "airbnb-base",
     "rules": {
       "no-tabs": 0,
-      "indent": ["error", "tab"]
+      "indent": ["error", "tab"],
+      "import/extensions": ["error", "ignorePackages"]
     }
 }

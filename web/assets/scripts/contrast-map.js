@@ -1,79 +1,15 @@
-function getWebGLContext(canvas) {
-	const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+import getWebGLContext from './gl/get-context.js';
+import createShader from './gl/create-shader.js';
+import createShaderProgram from './gl/create-shader-program.js';
+import createTexture from './gl/create-texture.js';
+import createVertexPositionBuffer from './gl/create-vertex-position-buffer.js';
 
-	if (!gl) {
-		throw new Error('WebGL is not supported');
-	}
-
-	gl.viewportWidth = canvas.width;
-	gl.viewportHeight = canvas.height;
-
-	return gl;
-}
-
-function createShader(gl, shaderContent, shaderType) {
-	const shader = gl.createShader(shaderType);
-
-	gl.shaderSource(shader, shaderContent);
-	gl.compileShader(shader);
-
-	if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-		throw new Error(gl.getShaderInfoLog(shader));
-	}
-
-	return shader;
-}
-
-function createShaderProgram(gl, fragmentShader, vertexShader) {
-	const shaderProgram = gl.createProgram();
-	gl.attachShader(shaderProgram, fragmentShader);
-	gl.attachShader(shaderProgram, vertexShader);
-	gl.linkProgram(shaderProgram);
-
-	if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-		throw new Error('Unable to initialize shader.');
-	}
-
-	gl.useProgram(shaderProgram);
-	return shaderProgram;
-}
-
-function createVertexPositionBuffer(gl) {
-	const vertexPositionBuffer = gl.createBuffer();
-	const vertices = new Float32Array([
-		-1.0, -1.0,
-		1.0, -1.0,
-		-1.0, 1.0,
-		-1.0, 1.0,
-		1.0, -1.0,
-		1.0, 1.0,
-	]);
-
-	gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-
-	return vertexPositionBuffer;
-}
-
-function createTexture(gl, image) {
-	const texture = gl.createTexture();
-	gl.bindTexture(gl.TEXTURE_2D, texture);
-
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-
-	return texture;
-}
-
-function createContrastMap(
+export default (
 	imageBase,
 	imageText,
 	shaderFragmentContent,
 	shaderVertexContent,
-) {
+) => {
 	const height = imageBase.naturalHeight;
 	const width = imageBase.naturalWidth;
 
@@ -123,4 +59,4 @@ function createContrastMap(
 		canvas,
 		pixels,
 	};
-}
+};

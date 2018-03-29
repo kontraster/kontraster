@@ -1,6 +1,5 @@
-/* global createContrastMap, fetchImage */
-
-const getResponseText = res => res.text();
+import createContrastMap from './contrast-map.js';
+import fetchImage from './fetch-image.js';
 
 (async () => {
 	const [
@@ -12,8 +11,8 @@ const getResponseText = res => res.text();
 	] = await Promise.all([
 		fetchImage('/image-base'),
 		fetchImage('/image-text'),
-		fetch('/assets/shaders/contrast-map.frag.glsl').then(getResponseText),
-		fetch('/assets/shaders/contrast-map.vert.glsl').then(getResponseText),
+		fetch('/assets/shaders/contrast-map.frag.glsl').then(res => res.text()),
+		fetch('/assets/shaders/contrast-map.vert.glsl').then(res => res.text()),
 		fetch('/info').then(res => res.json()),
 	]);
 
