@@ -13,7 +13,7 @@
         "./test/images/gradient-base.png",
         "./test/images/gradient-text.png",
         "--output",
-        "./output/test.png"
+        "./test/output/test.png"
       ]
     },
     {
@@ -25,7 +25,7 @@
         "./test/images/gradient-base.png",
         "./test/images/gradient-text.png",
         "--output",
-        "./output/test.png",
+        "./test/output/test.png",
         "--output-type",
         "mask"
       ]

@@ -7,8 +7,17 @@
     "kontraster": "./lib/cli/kontraster.js",
     "kontraster-web": "./lib/cli/kontraster-web.js"
   },
+  "scripts": {
+    "start": "npm test -- -w",
+    "test": "ava"
+  },
   "directories": {
     "lib": "lib"
+  },
+  "ava": {
+    "files": [
+      "lib/**/*.spec.js"
+    ]
   },
   "dependencies": {
     "connect": "^3.6.6",
@@ -19,6 +28,7 @@
     "serve-static": "^1.13.2"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0"

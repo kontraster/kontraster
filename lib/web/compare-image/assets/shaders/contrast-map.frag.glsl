@@ -47,7 +47,7 @@ void main() {
 		shouldRenderContrastRatio(colorBase, colorText) &&
 		getContrastRatio(colorBase, colorText) < CONTRAST_RATIO
 	) {
-		#ifdef IS_MASK
+		#ifdef MASK
 			gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 		#else
 			gl_FragColor = OVERLAY_COLOR;
@@ -56,7 +56,7 @@ void main() {
 		return;
 	}
 
-	#ifdef IS_COMPOSITION
+	#ifdef COMPOSITION
 		gl_FragColor = texture2D(uTextureText, vTexturePosition);
 	#else
 		discard;
